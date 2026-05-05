@@ -27,7 +27,7 @@ def build_interview_support_plan(
     if "python" in jd_lower:
         interview_focus.append("面試準備：著重 Python 演算法、資料處理邏輯與非同步編程（若適用）。")
     if "sql" in jd_lower:
-        interview_focus.append("面試準備：熟悉資料庫索引優化、複雜 JOIN 查詢與視圖設計。")
+        interview_focus.append("面試準備：熟悉 SQL、資料庫索引優化、複雜 JOIN 查詢與視圖設計。")
     if not interview_focus:
         interview_focus.append("面試準備：著重 JD 中提及的核心職能與軟實力要求。")
 
