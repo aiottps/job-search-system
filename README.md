@@ -95,5 +95,17 @@ The system provides preliminary, evidence-based signals regarding workplace incl
 - **Transparent Limitations:** When data is missing for specific categories, the system explicitly labels them as "資料不足" (Insufficient Data).
 - **Practical Guidance:** Generates confirmation questions for candidates to use during interviews to verify inclusion policies directly.
 
+## Real Collector Skeleton / 真實職缺收集器骨架
+- 目前真實 collector 僅為公開搜尋頁 skeleton。
+- 預設 `USE_REAL_COLLECTORS=false`。
+- 測試仍使用 mock collector，不連真網站。
+- 每來源最多 `MAX_JOBS_PER_SOURCE` 筆，預設 3。
+- 使用 polite delay / rate limiting 避免高頻請求。
+- 遇到 login / CAPTCHA / verification 時，記錄 warning 並回傳空 list。
+- LinkedIn 仍只支援 manual import。
+- 若要手動嘗試真實 collector，需設定 `USE_REAL_COLLECTORS=true`。
+- 若本機要啟動 Playwright browser，需另外執行 `python -m playwright install chromium`。
+- GitHub Actions 測試不會啟動瀏覽器，也不會打真網站。
+
 ## Deployment
 The system is designed to run on GitHub Actions. Ensure all required secrets (DB, Gemini, SMTP) are configured in your repository settings.

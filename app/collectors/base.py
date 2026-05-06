@@ -14,17 +14,21 @@ class BaseCollector(ABC):
     @abstractmethod
     def search(self, keywords: List[str], locations: List[str]) -> List[Dict[str, Any]]:
         """
-        Search for jobs and return a list of raw job dictionaries.
-        
-        Expected fields in each dict:
-            source, title, company_name, location, 
-            salary_text, job_url, jd_text
-        
-        Optional field:
-            source_job_id: Platform-specific ID. If missing, deduplication
-                           will rely on content_hash.
+        [MOCK] Search for jobs using static/mock data for testing.
         """
         pass
+
+    async def search_real(self, keywords: List[str], locations: List[str], max_results: int = 3) -> List[Dict[str, Any]]:
+        """
+        [REAL] Perform actual web scraping using Playwright.
+        
+        Constraints:
+        - Only access public search pages.
+        - DO NOT log in.
+        - DO NOT bypass CAPTCHAs.
+        - Max results per call is capped.
+        """
+        return []
 
     @abstractmethod
     def get_jd(self, job_url: str) -> str:

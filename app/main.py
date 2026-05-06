@@ -1,6 +1,7 @@
 import argparse
 import sys
 import os
+import asyncio
 from app.utils.encoding import setup_encoding
 from app.config import config
 from app.schemas.job import JobItem, InterviewGuide
@@ -20,29 +21,44 @@ def get_collectors():
     """Returns a list of active collectors."""
     return [Collector104(), Collector1111()]
 
-def daily_job_search(mode="daily"):
-    logger.info(f"Starting job search (Mode: {mode})")
-    logger.info(f"Flags: USE_DB={config.USE_DB}, USE_GEMINI={config.USE_GEMINI}, SEND_EMAIL={config.SEND_EMAIL}")
-    
-    # 1. Load user preferences summary for AI prompt
-    user_prefs = config.user_prefs_text
-    
-    # 2. Collect jobs from all sources using configured keywords and locations
-    raw_jobs = []
+async def collect_jobs(mode: str):
+    """Collects jobs from mock or real sources based on mode and config."""
     collectors = get_collectors()
+    raw_jobs = []
+    
+    use_real = (mode == "daily" and config.USE_REAL_COLLECTORS)
     
     for collector in collectors:
         try:
-            # Note: Real Playwright crawling will be implemented next.
-            results = collector.search(config.JOB_KEYWORDS, config.JOB_LOCATIONS)
+            if use_real:
+                logger.info(f"Using REAL collector for {collector.__class__.__name__}")
+                results = await collector.search_real(
+                    config.JOB_KEYWORDS, 
+                    config.JOB_LOCATIONS, 
+                    max_results=config.MAX_JOBS_PER_SOURCE
+                )
+            else:
+                logger.info(f"Using MOCK collector for {collector.__class__.__name__}")
+                results = collector.search(config.JOB_KEYWORDS, config.JOB_LOCATIONS)
+            
             raw_jobs.extend(results)
         except Exception as e:
-            logger.error(f"Collector {collector.__class__.__name__} failed: {e}")
+            logger.exception(f"Collector {collector.__class__.__name__} failed: {e}")
+            
+    return raw_jobs
+
+async def daily_job_search_async(mode="daily"):
+    logger.info(f"Starting job search (Mode: {mode})")
+    logger.info(f"Flags: USE_DB={config.USE_DB}, USE_GEMINI={config.USE_GEMINI}, SEND_EMAIL={config.SEND_EMAIL}, USE_REAL={config.USE_REAL_COLLECTORS}")
+    
+    user_prefs = config.user_prefs_text
+    
+    # 2. Collect jobs
+    raw_jobs = await collect_jobs(mode)
     
     processed_jobs = []
     gemini = GeminiClient() if config.USE_GEMINI else None
 
-    # Processor for individual jobs
     def process_job(raw, repo=None):
         try:
             # 3. Create JobItem & Normalize
@@ -70,7 +86,7 @@ def daily_job_search(mode="daily"):
                 job_id = repo.save_job(job)
                 logger.info(f"  [Save] Job saved to DB (ID: {job_id})")
             else:
-                logger.info(f"  [Mock] DB save skipped (USE_DB=false)")
+                logger.info(f"  [Log] Skipping DB save")
 
             # 5. AI Analysis
             analysis = None
@@ -78,7 +94,7 @@ def daily_job_search(mode="daily"):
                 logger.info(f"  [AI] Analyzing with Gemini...")
                 analysis = gemini.analyze_jd(job.jd_text, user_prefs)
             else:
-                logger.info(f"  [Mock] Using default analysis (USE_GEMINI=false)")
+                logger.info(f"  [AI] Using default analysis")
                 analysis = get_default_analysis()
 
             job_dict = job.model_dump()
@@ -127,7 +143,7 @@ def daily_job_search(mode="daily"):
             sender = EmailSender()
             sender.send_daily_jobs(processed_jobs)
         else:
-            logger.info(f"  [Mock] Email skipped. {len(processed_jobs)} jobs processed.")
+            logger.info(f"  [Preview] Generating output/email_preview.html")
             output_dir = "output"
             os.makedirs(output_dir, exist_ok=True)
             sender = EmailSender()
@@ -136,7 +152,7 @@ def daily_job_search(mode="daily"):
             preview_path = os.path.join(output_dir, "email_preview.html")
             with open(preview_path, "w", encoding="utf-8") as f:
                 f.write(content)
-            logger.info(f"  [Mock] Preview saved to {preview_path}")
+            logger.info(f"  [Preview] Preview saved to {preview_path}")
     else:
         logger.info("No new jobs to notify.")
     
@@ -148,10 +164,11 @@ def main():
     parser.add_argument("--mode", choices=["daily", "search", "analyze", "mock"], default="daily")
     args = parser.parse_args()
 
-    if args.mode in ["daily", "mock"]:
-        daily_job_search(args.mode)
+    mode = args.mode
+    if mode in ["daily", "mock"]:
+        asyncio.run(daily_job_search_async(mode))
     else:
-        logger.warning(f"Mode {args.mode} not implemented yet.")
+        logger.warning(f"Mode {mode} not implemented yet.")
 
 if __name__ == "__main__":
     main()

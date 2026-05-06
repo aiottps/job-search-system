@@ -29,11 +29,17 @@ class Config:
     USE_DB = str_to_bool(os.getenv("USE_DB", "false"))
     USE_GEMINI = str_to_bool(os.getenv("USE_GEMINI", "false"))
     SEND_EMAIL = str_to_bool(os.getenv("SEND_EMAIL", "false"))
+    USE_REAL_COLLECTORS = str_to_bool(os.getenv("USE_REAL_COLLECTORS", "false"))
 
     # Job Search Preferences
     JOB_KEYWORDS = os.getenv("JOB_KEYWORDS", "Python,Data Engineer").split(",")
     JOB_LOCATIONS = os.getenv("JOB_LOCATIONS", "台北市,遠端").split(",")
     MIN_ANNUAL_SALARY = int(os.getenv("MIN_ANNUAL_SALARY", "700000"))
+    MAX_JOBS_PER_SOURCE = int(os.getenv("MAX_JOBS_PER_SOURCE", "3"))
+
+    # Playwright Settings
+    PLAYWRIGHT_HEADLESS = str_to_bool(os.getenv("PLAYWRIGHT_HEADLESS", "true"))
+    COLLECTOR_TIMEOUT_MS = int(os.getenv("COLLECTOR_TIMEOUT_MS", "15000"))
 
     # App Settings
     PYTHONUTF8 = os.getenv("PYTHONUTF8", "1") == "1"
