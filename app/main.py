@@ -49,7 +49,7 @@ async def collect_jobs(mode: str):
 
 async def daily_job_search_async(mode="daily"):
     logger.info(f"Starting job search (Mode: {mode})")
-    logger.info(f"Flags: USE_DB={config.USE_DB}, USE_GEMINI={config.USE_GEMINI}, SEND_EMAIL={config.SEND_EMAIL}, USE_REAL={config.USE_REAL_COLLECTORS}")
+    logger.info(f"Flags: USE_DB={config.USE_DB}, USE_AI_ANALYSIS={config.USE_AI_ANALYSIS}, SEND_EMAIL={config.SEND_EMAIL}, USE_REAL={config.USE_REAL_COLLECTORS}")
     
     user_prefs = config.user_prefs_text
     
@@ -57,7 +57,7 @@ async def daily_job_search_async(mode="daily"):
     raw_jobs = await collect_jobs(mode)
     
     processed_jobs = []
-    gemini = GeminiClient() if config.USE_GEMINI else None
+    gemini = GeminiClient() if config.USE_AI_ANALYSIS else None
 
     def process_job(raw, repo=None):
         try:
@@ -90,8 +90,8 @@ async def daily_job_search_async(mode="daily"):
 
             # 5. AI Analysis
             analysis = None
-            if config.USE_GEMINI and gemini:
-                logger.info(f"  [AI] Analyzing with Gemini...")
+            if config.USE_AI_ANALYSIS and gemini:
+                logger.info(f"  [AI] Analyzing...")
                 analysis = gemini.analyze_jd(job.jd_text, user_prefs)
             else:
                 logger.info(f"  [AI] Using default analysis")

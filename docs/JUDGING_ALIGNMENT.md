@@ -86,7 +86,7 @@ Evidence:
 How the project aligns:
 
 * **Pytest final result: 29 passed, 0 failed, 0 errors, 1 warning.**
-* Runs without real Gemini API (uses local fallback logic).
+* Runs without real external AI API (uses local fallback logic).
 * Runs without MSSQL (uses local mock repository).
 * Runs without external network (demo-friendly).
 * Uses fictional demo data only (張小凡).

@@ -45,17 +45,6 @@ Final validation result:
 - `CitationBuilder` deduplicates citations and ensures all generated outputs (stories, tools, quests) are grounded in evidence.
 - The architecture is designed so the local adapter can later be replaced by real Microsoft Foundry IQ or Azure AI services.
 
-## Hackathon Judging Alignment
-
-Career Quest Canvas aligns with the Creative Apps judging criteria:
-
-* **Accuracy & Relevance**: Built specifically for the Creative Apps track with GitHub Copilot-assisted development and a Microsoft IQ-inspired grounded context layer.
-* **Reasoning & Multi-step Thinking**: Uses a multi-step flow from grounded context to strengths, job bright spots, hero story, quests, interview game, and citations.
-* **Creativity & Originality**: Reframes job search as a Journey to the West-inspired confidence adventure, turning anxiety into storytelling.
-* **User Experience & Presentation**: Provides a warm, scroll-style one-page web demo with a clear 60-90 second presentation script.
-* **Reliability & Safety**: Passes 29 automated tests, uses fictional demo data, avoids real secrets, and runs completely offline without Gemini API or network dependencies.
-
-
 ## How to Run
 1. Install dependencies:
    ```bash
@@ -85,7 +74,7 @@ python -m pytest tests -v
 - **Demo data only**: Uses fictional characters (張小凡) and companies.
 - **No real PII**: No real personal identifiable information is included.
 - **No secrets**: Scanned for secrets; only placeholders in `.env.example` exist.
-- **No real Gemini API dependency**: The demo runs offline using local generation logic.
+- **No real external AI API dependency**: The demo runs offline using local generation logic.
 - **No real MSSQL dependency**: Uses a mock repository layer for the demo.
 - **No network dependency**: Completely functional in a local environment.
 - `.env.example` contains placeholder variable names only, not real credentials.

@@ -72,4 +72,4 @@ class InterviewGuide(BaseModel):
     mock_questions: List[dict]
     portfolio_suggestions: List[str]
     risk_warnings: List[str]
-    generated_by: str = "Gemini"
+    generated_by: str = "AI"

@@ -15,7 +15,7 @@ class Config:
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     
-    # Gemini API
+    # AI API
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
     
     # SMTP
@@ -27,7 +27,7 @@ class Config:
     
     # Feature Flags
     USE_DB = str_to_bool(os.getenv("USE_DB", "false"))
-    USE_GEMINI = str_to_bool(os.getenv("USE_GEMINI", "false"))
+    USE_AI_ANALYSIS = str_to_bool(os.getenv("USE_AI_ANALYSIS", "false"))
     SEND_EMAIL = str_to_bool(os.getenv("SEND_EMAIL", "false"))
     USE_REAL_COLLECTORS = str_to_bool(os.getenv("USE_REAL_COLLECTORS", "false"))
 

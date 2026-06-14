@@ -62,5 +62,5 @@ JD 內容:
             )
             return json.loads(response.text)
         except Exception as e:
-            print(f"Gemini API Error: {e}")
+            print(f"AI API Error: {e}")
             return get_default_analysis()
