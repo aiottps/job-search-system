@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Quest Canvas - 求職冒險故事工坊</title>
+    <link rel="stylesheet" href="/web/styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Career Quest Canvas</h1>
+            <h2>求職冒險故事工坊</h2>
+            <p class="tagline">把焦慮變成故事，把不確定變成任務，把面試變成遊戲，在每一關累積信心。</p>
+        </header>
+        
+        <main>
+            <!-- Job Selection -->
+            <section id="job-selector-section">
+                <h3>選擇今日要去闖蕩的山門</h3>
+                <div id="job-list" class="job-cards">
+                    <!-- Jobs will be loaded here -->
+                </div>
+                <div id="action-area" class="hidden">
+                    <p id="selected-job-info"></p>
+                    <button id="start-adventure-btn">開始今日取經</button>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>正在翻閱命運卷軸，請稍候...</p>
+            </div>
+
+            <!-- Adventure Content -->
+            <div id="adventure-content" class="hidden">
+                
+                <!-- Vol 1: Strengths -->
+                <section class="vol scroll-bg" id="vol-strengths">
+                    <h3 class="vol-title">第一卷：照見本領</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Vol 2: Job Bright Spots -->
+                <section class="vol scroll-bg" id="vol-job">
+                    <h3 class="vol-title">第二卷：職缺山門</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Vol 3: Hero Story -->
+                <section class="vol scroll-bg" id="vol-story">
+                    <h3 class="vol-title">第三卷：英雄故事</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Vol 4: Quests -->
+                <section class="vol scroll-bg" id="vol-quests">
+                    <h3 class="vol-title">第四卷：任務卷軸</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Vol 5: Interview Game -->
+                <section class="vol scroll-bg" id="vol-interview">
+                    <h3 class="vol-title">第五卷：面試妖怪試煉</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Final Pack -->
+                <section class="vol scroll-bg" id="vol-final">
+                    <h3 class="vol-title">終章：取得真經</h3>
+                    <div class="content"></div>
+                </section>
+
+                <!-- Citations -->
+                <section id="citations-section">
+                    <h4>Foundry IQ 證據鏈 (Grounded Evidence)</h4>
+                    <ul id="citations-list"></ul>
+                </section>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button onclick="location.reload()">重新選擇山門</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2026 Career Quest Canvas - Microsoft Agents League Hackathon</p>
+        </footer>
+    </div>
+    <script src="/web/app.js"></script>
+</body>
+</html>

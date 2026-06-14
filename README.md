@@ -1,111 +1,118 @@
-# Personal Job Search Assistant
+# Career Quest Canvas
 
-A personal job search assistant system designed for candidates.
+**Tagline:** Turn job-search anxiety into a confidence-building adventure.
 
-## Features
-- Daily job search on 104 and 1111 (Contract defined, Playwright logic TODO).
-- LinkedIn Manual Import (Automated scraping strictly prohibited).
-- Candidate-oriented analysis using Gemini.
-- MSSQL database for job tracking and company reviews.
-- Daily email notifications via GitHub Actions.
+## Introduction
 
-## Tech Stack
-- Python 3.11+
-- Playwright (Web scraping)
-- MSSQL (Database)
-- Gemini API (Analysis)
-- GitHub Actions (Scheduling)
+### English
+Career Quest Canvas is a creative job-search storytelling app that turns anxiety into story, uncertainty into quests, and interviews into confidence-building games.
 
-## Setup
-1. Clone the repository.
-2. Install dependencies: `pip install -r requirements.txt`
-3. Install Playwright browsers: `playwright install chromium`
-4. Copy `.env.example` to `.env` and fill in your credentials.
-5. Initialize the database using `app/db/models.sql`.
+### 中文簡介
+Career Quest Canvas 是一個求職冒險故事工坊。它把焦慮變成故事，把不確定變成任務，把面試變成遊戲，幫助求職者在每一關中看見自己的優點，累積信心，展現更好的自己。
 
-## Windows User Notes
-If you are using Windows PowerShell, please run the following commands to ensure proper UTF-8 handling and environment configuration:
-```powershell
-chcp 65001
-$env:PYTHONUTF8="1"
-```
+## Creative Apps Track
+This project is submitted to the **Creative Apps** track of the Microsoft Agents League Hackathon. 
 
-### Troubleshooting: Windows Python / pip / pytest
-If you encounter `CommandNotFound` or if `pip`/`pytest` cannot be found even after installation:
-1. **Avoid direct commands:** Always use the `python -m` prefix to ensure you are using the correct Python environment.
-   - Use `python -m pip install -r requirements.txt` instead of `pip install`.
-   - Use `python -m pytest tests -v` instead of `pytest`.
-2. **Check Python Stub:** If your `python` command points to `WindowsApps/python.exe`, it is a Microsoft Store stub. We highly recommend:
-   - Installing formal Python from [python.org](https://www.python.org/).
-   - Disabling "App execution aliases" for `python.exe` and `python3.exe` in Windows Settings.
-3. **Encoding Issues:** If you see garbled characters or mojibake in the terminal, ensure you've run `chcp 65001`.
+It is not a typical job search tool; it's a creative application designed to build candidate confidence through storytelling, quests, and gamified interview preparation. By reframing the stressful job hunt as a "Journey to the West" style adventure, it helps users focus on their strengths and actionable steps.
 
-## Usage & Local Testing
+## GitHub Copilot Collaboration
 
-### Configuration
-You can customize your job search preferences in `.env`:
-- `JOB_KEYWORDS`: Comma-separated list of keywords (e.g. `Data Engineer,Python`).
-- `JOB_LOCATIONS`: Comma-separated list of locations (e.g. `桃園市,遠端`).
-- `MIN_ANNUAL_SALARY`: Minimum annual salary (e.g. `800000`).
+Career Quest Canvas was developed as a GitHub Copilot-assisted Creative Apps project.
 
-### Run Mock Search
-To test the pipeline logic without external dependencies:
+GitHub Copilot was used to support:
+
+* Product ideation and Creative Apps positioning
+* Architecture prompting and service planning
+* FastAPI web demo structure
+* Adventure service design
+* Grounded context and citation flow design
+* Test case planning
+* README, demo script, and submission text refinement
+
+The project documents how GitHub Copilot helped shape the product direction, engineering structure, test coverage, and hackathon-ready documentation.
+
+Final validation result:
+
+* 29 automated tests passed
+* 0 failed
+* 0 errors
+* Local web demo verified at http://127.0.0.1:8000
+
+## Microsoft IQ / Foundry IQ-style Integration
+- Career Quest Canvas demonstrates a **Foundry IQ-style grounded context layer**. It does not call a live Microsoft cloud service in this demo.
+- Instead, it uses a **local adapter pattern** with fictional demo resume, job, and company context to show how grounded evidence and citations can reduce unsupported claims.
+- `GroundedContextService` loads evidence snippets from local sources.
+- `CitationBuilder` deduplicates citations and ensures all generated outputs (stories, tools, quests) are grounded in evidence.
+- The architecture is designed so the local adapter can later be replaced by real Microsoft Foundry IQ or Azure AI services.
+
+## Hackathon Judging Alignment
+
+Career Quest Canvas aligns with the Creative Apps judging criteria:
+
+* **Accuracy & Relevance**: Built specifically for the Creative Apps track with GitHub Copilot-assisted development and a Microsoft IQ-inspired grounded context layer.
+* **Reasoning & Multi-step Thinking**: Uses a multi-step flow from grounded context to strengths, job bright spots, hero story, quests, interview game, and citations.
+* **Creativity & Originality**: Reframes job search as a Journey to the West-inspired confidence adventure, turning anxiety into storytelling.
+* **User Experience & Presentation**: Provides a warm, scroll-style one-page web demo with a clear 60-90 second presentation script.
+* **Reliability & Safety**: Passes 29 automated tests, uses fictional demo data, avoids real secrets, and runs completely offline without Gemini API or network dependencies.
+
+
+## How to Run
+1. Install dependencies:
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+2. Start the server:
+   ```bash
+   python server.py
+   ```
+3. Open in your browser: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+## How to Test
+Run the automated test suite:
 ```bash
-cd job-search-system
-python -m app.main --mode mock
-```
-**Current Implementation Status:**
-- `Collector104` and `Collector1111` currently use **Mock Data** to verify the pipeline logic.
-- Real-world scraping via **Playwright** is the next development phase.
-
-### Run Tests
-To run automated unit tests for normalizers and collector contracts:
-```bash
-cd job-search-system
 python -m pytest tests -v
 ```
 
-### Collector Contract
-All collectors must return a list of dictionaries with the following fields:
-- `source`: Platform name (e.g., "104").
-- `title`: Job title (Required).
-- `company_name`: Hiring company (Required).
-- `location`: Location text (Required).
-- `salary_text`: Salary description (Required).
-- `job_url`: Link to the job (Required, must start with http/https).
-- `jd_text`: Full job description (Required).
-- `source_job_id`: Platform-specific ID (Optional).
+## Validation Result
+- **29 passed**
+- 0 failed
+- 0 errors
+- 1 warning (Starlette deprecation)
+- API endpoints verified
+- Web UI verified locally at http://127.0.0.1:8000
 
-## LinkedIn Policy
-LinkedIn automated login or scraping is NOT supported to comply with their terms of service. Users can manually provide job descriptions or URLs for analysis.
+## Safety & Reliability
+- **Demo data only**: Uses fictional characters (張小凡) and companies.
+- **No real PII**: No real personal identifiable information is included.
+- **No secrets**: Scanned for secrets; only placeholders in `.env.example` exist.
+- **No real Gemini API dependency**: The demo runs offline using local generation logic.
+- **No real MSSQL dependency**: Uses a mock repository layer for the demo.
+- **No network dependency**: Completely functional in a local environment.
+- `.env.example` contains placeholder variable names only, not real credentials.
 
-## Inclusive Interview Support / 無障礙面試支援
-Our system is committed to inclusive and non-discriminatory job search assistance:
-- **Gender Neutrality:** Gender identity and preferred names are used only for communication preferences and will never affect job matching, competency scores, or professional recommendations.
-- **Accessibility Accommodation:** Support for accessibility needs (e.g., sign language interpreters, live captions, wheelchair access) is treated as essential logistics. These needs are converted into actionable checklists for candidates and are **never** flagged as risks or negative factors.
-- **Data-Driven Analysis:** Company analysis, resume optimization, and interview focuses are derived strictly from the Job Description (JD) and verified public sources.
-- **Transparency:** If company or job information is insufficient, the system will explicitly output "資料不足" rather than fabricating reviews or market data.
+## Windows PowerShell UTF-8 Notes
 
-## Company Inclusion Evidence Analysis / 公司包容性來源分析
-The system provides preliminary, evidence-based signals regarding workplace inclusion and accessibility:
-- **Evidence-Based:** Signals are identified only from provided sources (official reports, news, reviews). No conclusion is generated without a source.
-- **Source Transparency:** Each analysis category groups the relevant sources used, allowing candidates to review the underlying evidence for detected signals.
-- **No Stereotyping:** Analysis does not produce stereotypical inferences or capability judgements related to gender or accessibility needs.
-- **Reliability Awareness:** Information from low-reliability sources (like anonymous forum posts) is explicitly marked to ensure candidate caution.
-- **Transparent Limitations:** When data is missing for specific categories, the system explicitly labels them as "資料不足" (Insufficient Data).
-- **Practical Guidance:** Generates confirmation questions for candidates to use during interviews to verify inclusion policies directly.
+If Chinese text appears as mojibake in PowerShell, run:
 
-## Real Collector Skeleton / 真實職缺收集器骨架
-- 目前真實 collector 僅為公開搜尋頁 skeleton。
-- 預設 `USE_REAL_COLLECTORS=false`。
-- 測試仍使用 mock collector，不連真網站。
-- 每來源最多 `MAX_JOBS_PER_SOURCE` 筆，預設 3。
-- 使用 polite delay / rate limiting 避免高頻請求。
-- 遇到 login / CAPTCHA / verification 時，記錄 warning 並回傳空 list。
-- LinkedIn 仍只支援 manual import。
-- 若要手動嘗試真實 collector，需設定 `USE_REAL_COLLECTORS=true`。
-- 若本機要啟動 Playwright browser，需另外執行 `python -m playwright install chromium`。
-- GitHub Actions 測試不會啟動瀏覽器，也不會打真網站。
+```powershell
+chcp 65001
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+[Console]::InputEncoding = [System.Text.UTF8Encoding]::new()
+$OutputEncoding = [System.Text.UTF8Encoding]::new()
+$env:PYTHONUTF8 = "1"
+```
 
-## Deployment
-The system is designed to run on GitHub Actions. Ensure all required secrets (DB, Gemini, SMTP) are configured in your repository settings.
+Then test again:
+
+```powershell
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/health | ConvertTo-Json -Depth 10
+```
+
+For a more stable JSON display on Windows, use:
+
+```powershell
+curl.exe -s http://127.0.0.1:8000/api/health | python -m json.tool
+```
+
+---
+Developed with GitHub Copilot collaboration for the Microsoft Agents League Hackathon - Creative Apps Track.

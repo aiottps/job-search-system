@@ -1,0 +1,20 @@
+[
+    {
+        "id": "demo-data-engineer",
+        "title": "Senior Data Engineer",
+        "company_name": "靈山數據科技 (Lingshan Data Tech)",
+        "location": "遠端 (雲端辦公)",
+        "salary_text": "年薪 1,200,000 - 1,800,000 TWD",
+        "jd_text": "我們正在尋找一位能駕馭資料洪流的工程師。主要職責包括：建置穩定的 ETL 流程、優化大數據查詢效率。技術棧包含 Python, SQL, Spark。我們重視程式碼品質與團隊協作。",
+        "source": "Foundry IQ"
+    },
+    {
+        "id": "demo-creative-app-dev",
+        "title": "Creative Web Application Developer",
+        "company_name": "花果山互動傳媒 (Huaguoshan Interactive)",
+        "location": "台北市 (混合辦公)",
+        "salary_text": "月薪 80,000 - 120,000 TWD",
+        "jd_text": "如果你熱愛創造有趣的、具備故事性的 Web 應用程式，這裡就是你的舞台。我們需要你精通 React/Vue 或 FastAPI，並對使用者體驗有極高的追求。你需要與設計師緊密合作，將創意轉化為現實。",
+        "source": "Foundry IQ"
+    }
+]

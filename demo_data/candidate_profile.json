@@ -1,0 +1,8 @@
+{
+    "name": "張小凡",
+    "title": "資料工程修行者",
+    "years_of_experience": 3,
+    "skills": ["Python", "SQL", "Spark", "Airflow", "FastAPI"],
+    "interests": ["自動化流程", "資料建模", "西遊記故事"],
+    "aspirations": "希望能在充滿活力的團隊中，利用技術解決真實世界的問題，並不斷精進本領。"
+}
