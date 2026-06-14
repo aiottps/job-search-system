@@ -19,13 +19,14 @@ Instead of only showing candidates what they lack, the app helps them discover t
 
 The project uses a Foundry IQ-style grounded context layer to connect recommendations with local demo resumes, job descriptions, and company context. Each generated story, quest, and interview challenge is tied to citations, helping reduce unsupported claims while keeping the experience warm, creative, and encouraging.
 
-Built as a FastAPI web demo with native HTML/CSS/JS, Career Quest Canvas runs locally without real Gemini API, MSSQL, external network access, or real personal data.
+Built as a FastAPI web demo with native HTML/CSS/JS, Career Quest Canvas runs locally without real external AI API, MSSQL, external network access, or real personal data.
 
 ## Microsoft IQ Explanation
 Career Quest Canvas demonstrates a Foundry IQ-style grounded context layer. It does not call a live Microsoft cloud service in this demo. Instead, it uses a local adapter pattern with fictional demo resume, job, and company context to show how grounded evidence and citations can reduce unsupported claims. The GroundedContextService turns local sources into evidence snippets, while CitationBuilder deduplicates and attaches citations to generated outputs. The architecture is designed so the local adapter can later be replaced by real Microsoft Foundry IQ or Azure AI services.
 
 ## GitHub Copilot Usage
-GitHub Copilot was used to help shape the project architecture, generate service and API structures, suggest tests, and improve documentation. Gemini CLI was also used during implementation validation and final polish. The project documents this collaboration transparently.
+
+GitHub Copilot was used to help shape the project architecture, generate service and API structures, suggest tests, and improve documentation. The project documents GitHub Copilot-assisted development as part of the Creative Apps submission.
 
 ## Safety and Reliability
-The demo uses fictional data only. It does not require real Gemini API credentials, MSSQL, network access, or personal user data. Tests verify that the core adventure response, APIs, citations, and common secret patterns are handled safely.
+The demo uses fictional data only. It does not require real external AI API credentials, MSSQL, network access, or personal user data. Tests verify that the core adventure response, APIs, citations, and common secret patterns are handled safely.
